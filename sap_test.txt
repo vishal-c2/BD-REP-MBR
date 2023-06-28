@@ -1,0 +1,65 @@
+0000000000000000000000000902951685324168 - support group id 
+
+Member 80B540 of dimension COST_CENTER has an invalid hierarchy parent '80B9'
+Member 80B510 of dimension COST_CENTER has an invalid hierarchy parent '80B9'
+Member 80B501 of dimension COST_CENTER has an invalid hierarchy parent '80B9'
+Member 80B100 of dimension COST_CENTER has an invalid hierarchy parent '80B9'
+
+PBI000000287508
+_2023_06_23
+
+/RB05/EW_BW_TD_Q_4M_PRBLMMGMT / PG3 -> /RB05/EWQP4MP1   (DTP_79IYH8OAFLVUT31HG7G
+
+Sub KeepCurrentMonthLog()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim currentDate As Date
+    Dim logDate As Date
+    Dim logRange As Range
+
+    ' Set the worksheet where the log is located
+    Set ws = ThisWorkbook.Worksheets("Sheet1") ' Replace "Sheet1" with your sheet name
+
+    ' Get the last used row in column A
+    lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+
+    ' Get the current date
+    currentDate = Date
+
+    ' Loop through the log rows in reverse order
+    For i = lastRow To 2 Step -1 ' Assuming the log starts from row 2
+
+        ' Get the date from the log entry (assuming it's in column A)
+        logDate = ws.Cells(i, "E").Value
+
+        ' Check if the log entry is from the current month
+        If Year(logDate) = Year(currentDate) And Month(logDate) = Month(currentDate) Then
+            ' Keep the log entry
+            Set logRange = ws.Range("A" & i & ":E" & i) ' Assuming the log has 4 columns, adjust as needed
+        Else
+            ' Delete the log entry
+            ws.Rows(i).Delete
+        End If
+
+    Next i
+
+    ' Optional: Format the log range or perform other actions on the current month's entries
+    'If Not logRange Is Nothing Then
+        ' Do something with the log range, such as formatting or data analysis
+   ' End If
+
+    ' Optional: Save the workbook
+    'ThisWorkbook.Save
+
+    ' Optional: Close the workbook
+    ' ThisWorkbook.Close
+
+End Sub
+
+="<a href=\"../../opendoc/openDocument.jsp?iDocID=AUnPD4KbfNRErK8KsKyBhvc&sIDType=CUID&sType=wid&lsMCI%5FVCUM%5FOQ%5F012=
+"+URLEncode(""+[V_SupportCompany])+"&lsICI%5FVCUM%5FOQ%5F012="+URLEncode(""+[V_SupportCompany])+"&lsMCI%5FVCUM%5FOQ%5F011=
+"+URLEncode(""+[V_SupportOrganization])+"&lsICI%5FVCUM%5FOQ%5F011="+URLEncode(""+[V_SupportOrganization])+"&lsMCI%5FVCUM%5FOQ%5F010=
+"+URLEncode(""+[V_SupportGroup])+"&lsICI%5FVCUM%5FOQ%5F010="+URLEncode(""+[V_SupportGroup])+"&lsMCI_VCUM_OQ_106=Failure%3BRequest&lsICI_VCUM_106=Failure%3BRequest&lsSCI%5FVCUS%5FFSM%5F001
+="+URLEncode(""+[Query 1].[O1KPI2_Current Year])+"&lsICI%5FVCUS%5FFSM%5F001="+URLEncode(""+[Query 1].[O1KPI2_Current Year])+"&lsMCI%5FVCUM%5FOQ%5F105=0%3B1&lsICI%5FVCUM%5FOQ%5F105=0%3B1&
+lsMCI%5FCVUM%5FOQ%5F015=High%3BMedium%3BLow&lsICI%5FCVUM%5FOQ%5F015=1%3B2%3B3&lsMCI%5FVCUM%5FOQ%5F005="+URLEncode(""+[V_Service])+"&lsICI%5FVCUM%5FOQ%5F005="+URLEncode(""+[V_Service])+"&lsMCI%5FVCUM%5FOQ%5F008="+URLEncode(""+[V_CI])+"&lsICI%5FVCUM%5FOQ%5F008="+URLEncode(""+[V_CI])+"&lsMCI%5FVCUM%5FOQ%5F009="+URLEncode(""+[V_Site])+"&lsICI%5FVCUM%5FOQ%5F009="+URLEncode(""+[V_Site])+"&lsMCI%5FVCUM%5FOQ%5F007="+URLEncode(""+[V_IncidentType])+"&lsICI%5FVCUM%5FOQ%5F007="+URLEncode
+(""+[V_IT_KEY])+"\" title=\"\" target=\"_blank\" nav=\"doc\">"+[Total Tickets First Resolved_HML_CY]+"</a>"

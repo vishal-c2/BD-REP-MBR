@@ -1,0 +1,50 @@
+#Code to perform I01 automation for weekly reports
+import os
+import shutil
+from datetime import datetime
+
+def move_and_rename_pdf(source_directory, destination_directory, file_name_prefix):
+    # Get the current date in the format yyyy-mm-dd
+    current_date = datetime.now().strftime("%Y-%m-%d")
+
+    # Construct the source file path
+    source_file_path = os.path.join(source_directory, f"{file_name_prefix}.pdf")
+
+    if not os.path.isfile(source_file_path):
+        print(f"File '{file_name_prefix}.pdf' not found in the source directory.")
+        return
+
+    # Construct the new file name with the desired format
+    new_file_name = f"{file_name_prefix}_{current_date}.pdf"
+    destination_file_path = os.path.join(destination_directory, new_file_name)
+
+    # Move and rename the PDF file
+    shutil.move(source_file_path, destination_file_path)
+
+    print(f"File '{file_name_prefix}.pdf' moved and renamed to '{destination_file_path}'.")
+
+if __name__ == "__main__":
+    source_directory = r"\\bmh2fs02.apac.bosch.com\gs_redlake_ms$\PIS I01"
+    destination_base_directory = r"C:\Users\ILL2KOR\SharePoint On-Premise\Incident Reminder - Documents"
+
+    file_mappings = {
+        "BD-ALL": "I01_Weekly_Incident_Reminder_BD-ALL",
+        "BD-BT": "I01_Weekly_Incident_Reminder_BD-BT-xx",
+        "BD-PD": "I01_Weekly_Incident_Reminder_BD-PD",
+        "BD-PF": "I01_Weekly_Incident_Reminder_BD-PF",
+        "BD-PI": "I01_Weekly_Incident_Reminder_BD-PI",
+        "BD-PL": "I01_Weekly_Incident_Reminder_BD-PL",
+        "BD-PO": "I01_Weekly_Incident_Reminder_BD-PO",
+        "BD-PP": "I01_Weekly_Incident_Reminder_BD-PP",
+        "BD-PW": "I01_Weekly_Incident_Reminder_BD-PW",
+        "BD-RX": "I01_Weekly_Incident_Reminder_BD-RX",
+        "BD-SX": "I01_Weekly_Incident_Reminder_BD-SX",
+        "BD-XD": "I01_Weekly_Incident_Reminder_BD-XD",
+        "BD-XE": "I01_Weekly_Incident_Reminder_BD-XE",
+        "BD-XT": "I01_Weekly_Incident_Reminder_BD-XT",
+    }
+
+    # Move and rename PDF files for each specified mapping
+    for destination_folder, file_name_prefix in file_mappings.items():
+        destination_directory = os.path.join(destination_base_directory, destination_folder)
+        move_and_rename_pdf(source_directory, destination_directory, file_name_prefix)
